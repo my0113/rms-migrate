@@ -71,7 +71,7 @@ shell> java -jar rms-migrate.jar hive-policy.json hdfs-policy.json hivemeta.dat 
 1）策略文件导入
 ```shell
 # 导入策略时，不允许应用对Ranger进行增删改操作，查询可以
-Ranger WebUI > Import button > Select Override Policy > Import button
+Ranger Admin WebUI > Import button > Select Override Policy > Import button
 ```
 > 等待时间约为：每1万条策略10分钟
 
@@ -91,7 +91,7 @@ CM > Ranger RMS > Action > Stop
 ```
 ## 3.2、删除主备NameNode本地的Mapping缓存
 ```shell
-rm -rf /var/lib/ranger/hdfs/policy-cache/hdfs_cm_hive_resource_mapping.json
+mv /var/lib/ranger/hdfs/policy-cache/hdfs_cm_hive_resource_mapping.json /tmp
 ```
 ## 3.3、删除以下配置（如果有）
 ```shell
