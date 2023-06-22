@@ -6,7 +6,6 @@ import com.alibaba.fastjson2.JSONWriter;
 import com.cloudera.ranger.entity.MetadataInfo;
 import com.cloudera.ranger.entity.RangerExportPolicyList;
 import com.google.common.collect.Lists;
-import org.apache.commons.io.FileUtils;
 import org.apache.ranger.authorization.hadoop.constants.RangerHadoopConstants;
 import org.apache.ranger.plugin.model.RangerPolicy;
 
@@ -20,6 +19,7 @@ import java.util.stream.Stream;
 
 import static java.util.Objects.*;
 import static org.apache.commons.lang.StringUtils.*;
+import static org.apache.commons.io.FileUtils.*;
 
 /**
  * 1、Conversion Hive Policies to HDFS Policies
@@ -136,7 +136,7 @@ public class PolicyTool {
         String jsonStr = null;
         String policiesStr = null;
         try {
-            jsonStr = FileUtils.readFileToString(new File(policiesFile), ENCODING);
+            jsonStr = readFileToString(new File(policiesFile), ENCODING);
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(-1);
@@ -457,7 +457,7 @@ public class PolicyTool {
         String jsonStr = JSON.toJSONString(policyList);
         try {
             String path = String.join(FIX_SEPARATOR, hdfsPolicyFileDir, HDFS_POLICY_NAME);
-            FileUtils.write(new File(path), jsonStr, ENCODING);
+            write(new File(path), jsonStr, ENCODING);
             System.out.println(">>>> New HDFS Policy File "+path+" generate successfully.");
         } catch (IOException e) {
             e.printStackTrace();
@@ -474,7 +474,7 @@ public class PolicyTool {
     private static Map<String, MetadataInfo> loadMetadataInfo(String tableFileDir) {
         Map<String, MetadataInfo> tableInfo = new HashMap<>();
         try {
-            List<String> lines = FileUtils.readLines(new File(tableFileDir), ENCODING);
+            List<String> lines = readLines(new File(tableFileDir), ENCODING);
             System.out.println(">>>> File "+tableFileDir+" loaded.");
             if (lines.size()>0) {
                 lines.forEach(line -> {
@@ -569,7 +569,7 @@ public class PolicyTool {
         if (fullCmds.size() > 0) {
             try {
                 File file = new File(HDFS_POLICY_BASH);
-                FileUtils.writeLines(file, fullCmds);
+                writeLines(file, fullCmds);
                 System.out.println(">>>> HDFS Path Permission Check File "+file.getAbsolutePath()+" generate successfully.");
             } catch (IOException e) {
                 e.printStackTrace();

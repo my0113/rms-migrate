@@ -83,7 +83,7 @@ Ranger Admin WebUI > Import button > Select Override Policy > Import button
 
 
 # 三、如何停用RMS
-> 此步骤停用了Ranger RMS, 可以完全规避由RMS导致的性能问题。停用RMS不会影响Hive和Impala, 但会影响到其他直连HDFS读写数据的计算引擎，如说当某个跑批用户通过Spark直读Hive数据文件时，由于RMS停用，Ranger中如果没有对应的HDFS策略，那么该访问请求将被屏蔽。一般来说，需要检查可能被影响到的应用，根据实际情况添加对应的HDFS策略即可。您可以通过Ranger Admin UI或者REST API添加策略。以下是Ranger RMS的工作流程供参考:https://docs.cloudera.com/cdp-private-cloud-base/7.1.7/security-ranger-rms-configuring-and-using/topics/security-ranger-rms-configuring.html#pnavId2
+> 此步骤停用了Ranger RMS, 可以完全规避由RMS导致的性能问题。停用RMS不会影响Hive和Impala, 但会影响到其他直连HDFS读写数据的计算引擎，如当某个跑批用户通过Spark直读Hive数据文件时，由于RMS停用，Ranger中如果没有对应的HDFS策略，那么该访问请求将被屏蔽。一般来说，需要检查可能被影响到的应用，根据实际情况添加对应的HDFS策略即可。您可以通过Ranger Admin UI或者REST API添加策略。以下是Ranger RMS的工作流程供参考:https://docs.cloudera.com/cdp-private-cloud-base/7.1.7/security-ranger-rms-configuring-and-using/topics/security-ranger-rms-configuring.html#pnavId2
 
 ## 3.1、关停Ranger RMS服务
 ```shell
