@@ -134,7 +134,6 @@ public class PolicyTool {
     private static List<RangerPolicy> importPolicies(String policiesFile) {
         List<RangerPolicy> policiesList = null;
         String jsonStr = null;
-        String policiesStr = null;
         try {
             jsonStr = readFileToString(new File(policiesFile), ENCODING);
         } catch (IOException e) {
@@ -143,11 +142,8 @@ public class PolicyTool {
         }
         System.out.println(">>>> File "+policiesFile+" loaded.");
         JSONObject jsonObj = JSON.parseObject(jsonStr);
-        if (!jsonObj.isEmpty()) {
-            policiesStr = jsonObj.getString("policies");
-        }
-        if (isNotEmpty(policiesStr)) {
-             policiesList = JSON.parseArray(policiesStr, RangerPolicy.class);
+        if (!jsonObj.isEmpty()&&jsonObj.containsKey("policies")) {
+            policiesList = jsonObj.getJSONArray("policies").toJavaList(RangerPolicy.class);
         }
         System.out.println(">>>> File "+policiesFile+" parsed.");
         return policiesList;

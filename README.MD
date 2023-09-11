@@ -13,12 +13,30 @@
 
 # 二、如何使用
 ## 2.1、确保Ranger无策略增删改
-1）停止非Ranger服务（推荐）
+1）停止集群（推荐）
 ```shell
+// 1. 停止整个集群，确保不会有对Ranger的权限修改操作（包括Ranger Admin WebUI或Ranger Admin RestAPI）
 CM > Action > Stop
-CM > ZooKeeper && Ranger > Action > Start
+
+// 2. 执行导入命令
+shell> java -jar rms-migrate.jar ...
+
+// 3. 启动其他组件
+CM >  > Action > Start
 ```
-2）确保Ranger处于ReadOnly（不推荐）
+2）仅停止Ranger服务
+```shell
+// 1. 停止Ranger服务（包括Ranger Admin、Ranger RMS、Ranger TagSync、Ranger UserSync）
+CM > Ranger > Action > Stop
+
+// 2. 执行导入命令
+shell> java -jar rms-migrate.jar ...
+
+// 3. 启动Ranger服务
+CM > Ranger > Action > Start
+
+```
+3）确保Ranger处于ReadOnly（不推荐）
 > 当前不会有任何服务、应用或API对Ranger执行策略的增删改操作，需要自行判断。
 
 ## 2.2、备份Ranger策略文件
